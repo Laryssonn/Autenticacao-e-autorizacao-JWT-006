@@ -1,6 +1,7 @@
 {
   "name": "autenticacao-e-autorizacao-jwt-006",
   "version": "1.0.0",
+  "type": "module",
   "main": "index.js",
   "license": "MIT",
   "devDependencies": {
@@ -26,5 +27,11 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prepare": "husky install"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "7",
+    "dotenv": "^18.0.2",
+    "pg": "^8.23.0"
   }
 }
