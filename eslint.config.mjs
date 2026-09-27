@@ -17,5 +17,8 @@ export default defineConfig([
   {
     files: ["**/*.ts"],
     extends: [tseslint.configs.recommended],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "off"
+    }
   },
 ]);
