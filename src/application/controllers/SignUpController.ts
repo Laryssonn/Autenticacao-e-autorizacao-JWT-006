@@ -1,6 +1,6 @@
 import { z, ZodError } from 'zod';
 import { IController, IRequest, IResponse } from '../interfaces/IController';
-import { SignUpCase } from '../useCases/SignUpUseCase';
+import { SignUpUseCase } from '../useCases/SignUpUseCase';
 
 const schema = z.object({
   name: z.string().min(2),
@@ -9,7 +9,7 @@ const schema = z.object({
 });
 
 export class SignUpController implements IController {
-  constructor(private readonly signupUseCase: SignUpCase) {}
+  constructor(private readonly signupUseCase: SignUpUseCase) {}
 
   async handle({ body }: IRequest): Promise<IResponse> {
     try {
