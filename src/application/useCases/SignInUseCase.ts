@@ -1,5 +1,5 @@
 import { compare } from 'bcryptjs';
-import { sign } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import { env } from '../config/env';
 import { InvalidCredentials } from '../errors/InvalidCredentials';
 import { prismaClient } from '../libs/prismaClient';
@@ -29,7 +29,7 @@ export class SignInUseCase {
       throw new InvalidCredentials();
     }
 
-    const accessToken = sign({ sub: account.id }, env.jwtSecret, {
+    const accessToken = jwt.sign({ sub: account.id }, env.jwtSecret, {
       expiresIn: '1d',
     });
 
