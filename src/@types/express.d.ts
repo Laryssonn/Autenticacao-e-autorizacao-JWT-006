@@ -1,6 +1,8 @@
-declare namespace Express {
+import 'express-serve-static-core';
+
+declare module 'express-serve-static-core' {
   interface Request {
-    metada: {
+    metadata: {
       accountID: string;
     };
   }
