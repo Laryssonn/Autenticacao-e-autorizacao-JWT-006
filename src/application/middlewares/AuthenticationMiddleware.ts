@@ -22,8 +22,12 @@ export class AuthenticationMiddleware implements IMiddleware {
 
     try {
       const token = authorization.split(' ')[1];
-      const payload = jwt.verify(token, env.jwtSecret);
 
+      if (!token) {
+        throw new Error();
+      }
+
+      const payload = jwt.verify(token, env.jwtSecret);
       return {
         data: {
           accountID: payload.sub,
