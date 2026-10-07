@@ -2,9 +2,11 @@ import express from 'express';
 
 import { routeAdapter } from './adapters/routeAdapter';
 
+import { makeAuthenticationMiddleware } from '../factories/makeAuthenticationMiddleware';
 import { makeListLeadController } from '../factories/makeListLeadsController';
 import { makeSignInController } from '../factories/makeSignInController';
 import { makeSignUpController } from '../factories/makeSignUpController';
+import { middlewareAdapter } from './adapters/middlewareAdapter';
 
 const app = express();
 
@@ -15,15 +17,7 @@ app.post('/sign-in', routeAdapter(makeSignInController()));
 
 app.get(
   '/leads',
-  (request, response, next) => {
-    const authorizantion = request.headers.authorization;
-
-    if (!authorizantion) {
-      response.sendStatus(401);
-    }
-
-    next();
-  },
+  middlewareAdapter(makeAuthenticationMiddleware()),
   routeAdapter(makeListLeadController()),
 );
 
