@@ -21,6 +21,12 @@ app.get(
   routeAdapter(makeListLeadController()),
 );
 
+app.post(
+  '/leads',
+  middlewareAdapter(makeAuthenticationMiddleware()),
+  (req, res) => res.json({ created: true }),
+);
+
 app.listen(3001, () => {
   console.log('Server started at http://localhost:3001 👽');
 });
