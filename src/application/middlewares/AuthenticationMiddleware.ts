@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { JwtPayload } from 'jsonwebtoken';
 import { env } from '../config/env';
 import {
   IData,
@@ -27,10 +27,13 @@ export class AuthenticationMiddleware implements IMiddleware {
         throw new Error();
       }
 
-      const payload = jwt.verify(token, env.jwtSecret);
+      const payload = jwt.verify(token, env.jwtSecret) as JwtPayload;
       return {
         data: {
-          accountID: payload.sub,
+          account: {
+            id: payload.sub,
+            role: payload.role,
+          },
         },
       };
     } catch {
