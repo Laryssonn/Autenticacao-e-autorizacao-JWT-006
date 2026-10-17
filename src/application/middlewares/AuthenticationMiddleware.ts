@@ -1,15 +1,11 @@
 import jwt, { JwtPayload } from 'jsonwebtoken';
 import { env } from '../config/env';
-import {
-  IData,
-  IMiddleware,
-  IRequest,
-  IResponse,
-} from '../interfaces/IMiddlaware';
+import { IData, IMiddleware, IResponse } from '../interfaces/IMiddlaware';
+import { IRequest } from '../interfaces/IRequest';
 
 export class AuthenticationMiddleware implements IMiddleware {
-  async handle(request: IRequest): Promise<IResponse | IData> {
-    const { authorization } = request.headers;
+  async handle({ headers }: IRequest): Promise<IResponse | IData> {
+    const { authorization } = headers;
 
     if (!authorization?.startsWith('Bearer ')) {
       return {
