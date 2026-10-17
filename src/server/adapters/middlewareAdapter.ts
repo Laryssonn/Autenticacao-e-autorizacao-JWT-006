@@ -4,6 +4,8 @@ import { IMiddleware } from '../../application/interfaces/IMiddlaware';
 export function middlewareAdapter(middlare: IMiddleware) {
   return async (request: Request, response: Response, next: NextFunction) => {
     const result = await middlare.handle({
+      body: request.body,
+      account: request.metadata?.account,
       headers: request.headers as Record<string, string>,
     });
 
