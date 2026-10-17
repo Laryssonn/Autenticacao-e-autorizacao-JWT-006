@@ -3,6 +3,7 @@ import express from 'express';
 import { routeAdapter } from './adapters/routeAdapter';
 
 import { makeAuthenticationMiddleware } from '../factories/makeAuthenticationMiddleware';
+import { makeAuthorizationMiddleware } from '../factories/makeAuthorizationMiddleware';
 import { makeListLeadController } from '../factories/makeListLeadsController';
 import { makeSignInController } from '../factories/makeSignInController';
 import { makeSignUpController } from '../factories/makeSignUpController';
@@ -24,7 +25,8 @@ app.get(
 app.post(
   '/leads',
   middlewareAdapter(makeAuthenticationMiddleware()),
-  (req, res) => res.json({ created: true }),
+  middlewareAdapter(makeAuthorizationMiddleware(['USER'])),
+  (_, res) => res.json({ created: true }),
 );
 
 app.listen(3001, () => {
