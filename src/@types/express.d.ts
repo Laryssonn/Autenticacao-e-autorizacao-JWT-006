@@ -4,7 +4,7 @@ declare module 'express-serve-static-core' {
   interface Request {
     metadata: {
       account?: {
-        id: string | undefined;
+        id: string;
         role: string;
       };
     };
