@@ -16,3 +16,10 @@ model Account {
 
   @@map("accounts")
 }
+
+model Role {
+  id   String @id @default(uuid()) @db.Uuid
+  name String
+
+  @@map("roles")
+}
