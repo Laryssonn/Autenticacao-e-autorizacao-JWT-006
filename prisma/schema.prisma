@@ -15,7 +15,9 @@ model Account {
   password String
   roleId   String @map("role_id") @db.Uuid
 
-  role Role @relation(fields: [roleId], references: [id])
+  role         Role        @relation(fields: [roleId], references: [id])
+  permission   Permission? @relation(fields: [permissionId], references: [id])
+  permissionId String?     @db.Uuid
 
   @@map("accounts")
 }
@@ -26,4 +28,13 @@ model Role {
   accounts Account[]
 
   @@map("roles")
+}
+
+model Permission {
+  id       String    @id @default(uuid()) @db.Uuid
+  name     String
+  code     String    @unique
+  accounts Account[]
+
+  @@map("permissions")
 }
