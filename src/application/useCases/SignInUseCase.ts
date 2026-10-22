@@ -32,7 +32,7 @@ export class SignInUseCase {
     const accessToken = jwt.sign(
       {
         sub: account.id,
-        role: account.role,
+        role: account.roleId,
       },
       env.jwtSecret,
       { expiresIn: '1d' },
