@@ -9,7 +9,24 @@ export class AuthorizationMiddleware implements IMiddleware {
   ) {}
 
   async handle({ account }: IRequest): Promise<IResponse | IData> {
-    if (!account || !this.requiredPermissions.includes(account.role)) {
+    if (!account) {
+      return {
+        body: {
+          error: 'Access Denied.',
+        },
+        statusCode: 403,
+      };
+    }
+
+    const { permissionsCodes } = await this.getRolePermissionsUseCase.execute({
+      roleId: account.role,
+    });
+
+    const isAllowed = this.requiredPermissions.some((code) =>
+      permissionsCodes.includes(code),
+    );
+
+    if (!isAllowed) {
       return {
         body: {
           error: 'Access Denied.',
